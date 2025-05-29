@@ -32,29 +32,18 @@ devtools::install_github("sojungsojung/RareNet")
 ## Usage
 
 ```r
-## Usage
-
-```r
-## Usage
-
-```r
 library(RareNet)
 
-# Run RareNet (no assignment needed; writes results to workDir)
+# By default, RareNet uses the shipped geneset_string_v12.txt:
 rareNet(
   phenoFile     = "path/to/phenotypes.txt",
   plinkPrefix   = "path/to/pruned_prefix",
   bedFile       = "path/to/genotypes.bed",
   bimFile       = "path/to/genotypes.bim",
   famFile       = "path/to/genotypes.fam",
-  geneSetFile   = system.file("data","geneset_string_v12.txt",   package="RareNet"),
-  referenceFile = system.file("data","reference_panel.txt",      package="RareNet"),
   workDir       = "results/rareNet/",
   threads       = 4
 )
 closeAllConnections()
-
-# After completion, the file:
-#   results/rareNet/rareNet_results.txt
-# contains your final Gene and p.value table.
+# → writes results/rareNet/rareNet_results.txt with columns Gene and p.value
 ```
