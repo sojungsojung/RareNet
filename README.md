@@ -47,3 +47,15 @@ rareNet(
 closeAllConnections()
 # → writes results/rareNet/rareNet_results.txt with columns Gene and p.value
 ```
+
+### Custom Gene Set
+
+By default, RareNet uses the shipped `geneset_string_v12.txt`.  
+To override this, supply your own gene-set file via the `geneSetFile` argument.  
+
+**Requirements for your custom file** (TSV with **three** columns and a header row):  
+1. **GeneSet** — the name of the primary gene (e.g. `A1BG`)  
+2. **DESC**    — a short description (often the same as GeneSet)  
+3. **GeneSet,Genes** — a comma-separated list of **11** genes (the primary gene plus its top 10 neighbors)  
+
+Example first lines of `my_custom_geneset.txt`:
