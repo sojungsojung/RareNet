@@ -1,20 +1,44 @@
 # RareNet
 
-**RareNet** integrates SAIGE-GENE+ and GAUSS to produce gene-based p-values via a weighted Cauchy combination.
+**RareNet** integrates [SAIGE-GENE+](https://github.com/weizhouUMICH/SAIGE) and [GAUSS](https://github.com/diptavo/GAUSS) to compute aggregate rare‐variant gene p-values and then combines them via a weighted Cauchy method.
 
 ## Installation
 
 ```r
-# From GitHub (requires devtools)
+# Install devtools if needed
+if (!requireNamespace("devtools", quietly = TRUE))
+  install.packages("devtools")
+
+# Install from GitHub
 devtools::install_github("sojungsojung/RareNet")
+```
 
 ## Usage
 
-### Installation
-
 ```r
-# From CRAN (once released)
-install.packages("RareNet")
+# Load the RareNet package
+library(RareNet)
 
-# Or directly from GitHub:
-# install.packages("devtools"); devtools::install_github("yourusername/RareNet")
+# 1) Run the full RareNet pipeline:
+res <- rareNet(
+  phenoFile     = "path/to/phenotypes.txt",                   # your SAIGE phenotype file
+  genotypeFiles = c("data/chr1.bgen", "data/chr2.bgen"),      # provide your genotype files
+  geneSetFile   = system.file("extdata",                      # default STRING v12 gene set
+                              "string_v12_geneset.txt",
+                              package = "RareNet"),
+  workDir       = "results/rareNet/",                         # directory for intermediate outputs
+  p.thresh      = 2.5e-06                                      # significance threshold
+)
+
+# 2) View the top gene hits
+head(res)
+
+# 3) Export the final gene–p-value table
+write.table(
+  res[, .(Gene, combined.p)],
+  file      = "rareNet_results.txt",
+  row.names = FALSE,
+  col.names = TRUE,
+  quote     = FALSE
+)
+```
