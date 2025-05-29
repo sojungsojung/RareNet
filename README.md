@@ -14,6 +14,17 @@ if (!requireNamespace("devtools", quietly = TRUE))
 devtools::install_github("sojungsojung/RareNet")
 ```
 
+## Prerequisites
+
+- **Docker** (required to run the SAIGE-GENE+ containers)  
+- **R** (≥ 4.0) with the following packages installed:
+  - `SAIGE` (for SAIGE-GENE+)  
+  - `GAUSS`  
+  - `data.table`  
+  - `dplyr`  
+  - `foreach`  
+  - `doParallel`  
+
 ## Usage
 
 ```r
