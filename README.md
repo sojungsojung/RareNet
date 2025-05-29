@@ -59,7 +59,7 @@ To override this, supply your own gene-set file via the `geneSetFile` argument.
 3. **GeneSet,Genes** — a comma-separated list of **11** genes (the primary gene plus its top 10 neighbors)  
 
 Example first lines of `my_custom_geneset.txt`:
-```tsv
+```txt
 GeneSet DESC GeneSet,Genes
 A1BG A1BG A1BG,GRB2,CRISP3,PTPN11,GAB2,AHSG,CRK,SERPINA1,AMBP,A2M,TF
 A1CF A1CF
