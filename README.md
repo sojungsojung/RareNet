@@ -7,3 +7,14 @@
 ```r
 # From GitHub (requires devtools)
 devtools::install_github("sojungsojung/RareNet")
+
+## Usage
+
+### Installation
+
+```r
+# From CRAN (once released)
+install.packages("RareNet")
+
+# Or directly from GitHub:
+# install.packages("devtools"); devtools::install_github("yourusername/RareNet")
