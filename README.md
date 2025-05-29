@@ -1,4 +1,6 @@
-# RareNet: Rare Variant Network-based Association Analysis
+# RareNet
+
+Rare Variant Network-based Association Analysis
 
 RareNet is an R package for powerful gene-level rare-variant testing that:  
 1. Defines gene sets from high-confidence STRING-DB protein–protein interaction networks 
