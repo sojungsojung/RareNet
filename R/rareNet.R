@@ -26,5 +26,5 @@ rareNet <- function(phenoFile, genotypeFiles, geneSetFile,
                             p.value)]
   dt[, source := ifelse(Gene %in% unlist(coreSubset),
                         "combined","saige_only")]
-  return(dt[combined.p < p.thresh])
+  return(dt)
 }
