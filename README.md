@@ -32,24 +32,25 @@ devtools::install_github("sojungsojung/RareNet")
 ## Usage
 
 ```r
-# Load the RareNet package
 library(RareNet)
 
-# 1) Run the full RareNet pipeline:
+# 1) Run RareNet:
 res <- rareNet(
-  phenoFile     = "path/to/phenotypes.txt",                   # your SAIGE phenotype file
-  genotypeFiles = c("data/chr1.bgen", "data/chr2.bgen"),      # provide your genotype files
-  geneSetFile   = system.file("extdata",                      # default STRING v12 gene set
-                              "string_v12_geneset.txt",
-                              package = "RareNet"),
-  workDir       = "results/rareNet/",                         # directory for intermediate outputs
-  p.thresh      = 2.5e-06                                      # significance threshold
+  phenoFile     = "path/to/phenotypes.txt",      # phenotype file (IID, Phenotype)
+  plinkPrefix   = "path/to/pruned_prefix",       # for step1 (.bed/.bim/.fam)
+  bedFile       = "path/to/genotypes.bed",       # step2 input
+  bimFile       = "path/to/genotypes.bim",
+  famFile       = "path/to/genotypes.fam",
+  geneSetFile   = system.file("data","geneset_string_v12.txt", package="RareNet"),
+  referenceFile = system.file("data","reference_panel.txt",  package="RareNet"),
+  workDir       = "results/rareNet/",
+  threads       = 4
 )
 
-# 2) View the top gene hits
+# 2) Inspect results
 head(res)
 
-# 3) Export the final gene–p-value table
+# 3) Export combined p-values
 write.table(
   res[, .(Gene, combined.p)],
   file      = "rareNet_results.txt",
