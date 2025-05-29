@@ -10,15 +10,6 @@ RareNet is an R package for powerful gene-level rare-variant association analysi
 # • R ≥ 4.0 with the SAIGE and GAUSS packages installed
 # • data.table, dplyr, foreach, doParallel
 
-install.packages(c(
-  "SAIGE",       # for SAIGE-GENE+
-  "GAUSS",       # for GAUSS gene-set testing
-  "data.table", 
-  "dplyr", 
-  "foreach", 
-  "doParallel"
-))
-
 # Install devtools if needed
 if (!requireNamespace("devtools", quietly=TRUE))
   install.packages("devtools")
