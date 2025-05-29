@@ -1,6 +1,7 @@
 # RareNet
 
-**RareNet** integrates [SAIGE-GENE+](https://github.com/weizhouUMICH/SAIGE) and [GAUSS](https://github.com/diptavo/GAUSS) to compute aggregate rare‐variant gene p-values and then combines them via a weighted Cauchy method.
+**RareNet** integrates [SAIGE-GENE+](https://github.com/weizhouUMICH/SAIGE) and [GAUSS](https://github.com/diptavo/GAUSS) to compute aggregate rare‐variant gene p-values and then combine them via a weighted Cauchy method.  
+**It leverages protein–protein interaction networks from STRING-DB to group biologically related genes, boosting the power of gene-based tests.**
 
 ## Installation
 
@@ -11,7 +12,6 @@ if (!requireNamespace("devtools", quietly = TRUE))
 
 # Install from GitHub
 devtools::install_github("sojungsojung/RareNet")
-```
 
 ## Usage
 
