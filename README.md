@@ -1,6 +1,6 @@
 # RareNet: Rare Variant Network-based Association Analysis
 
-RareNet is an R package for powerful gene-level rare-variant association analysis that leverages high-confidence protein-protein interaction networks from [STRING-DB](https://string-db.org/) to create biologically informed gene sets. It computes per-gene p-values using [SAIGE-GENE+](https://github.com/weizhouUMICH/SAIGE) on large sequencing cohorts, then applies [GAUSS](https://github.com/diptavo/GAUSS)-powered by a pre-computed, empirically derived reference panel of gene-gene correlations- for subset-based association testing of the PPI-derived sets. RareNet merges the SAIGE-GENE+ and GAUSS p-values to deliver a single, network-award gene-level statistic with improved power and controlled type 1 error rates. 
+RareNet is an R package for powerful gene-level rare-variant association analysis that leverages high-confidence protein-protein interaction networks from [STRING](https://string-db.org/) to create biologically informed gene sets. It computes per-gene p-values using [SAIGE-GENE+](https://github.com/weizhouUMICH/SAIGE) on large sequencing cohorts, then applies [GAUSS](https://github.com/diptavo/GAUSS)-powered by a pre-computed, empirically derived reference panel of gene-gene correlations- for subset-based association testing of the PPI-derived sets. RareNet merges the SAIGE-GENE+ and GAUSS p-values to deliver a single, network-award gene-level statistic with improved power and controlled type 1 error rates. 
 
 
 ## Installation
