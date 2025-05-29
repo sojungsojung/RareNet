@@ -2,8 +2,8 @@
 #'
 #' @description
 #' 1) Runs SAIGE-GENE+ (step1 & step2) and concatenates per‐chromosome results  
-#' 2) Runs GAUSS on that SAIGE summary + gene‐set + reference weights  
-#' 3) For genes in the GAUSS core subset, computes weighted Cauchy combine;  
+#' 2) Runs GAUSS on that SAIGE summary + gene‐set + reference panel
+#' 3) For genes within the GAUSS core subset, computes weighted Cauchy combine;  
 #'    otherwise retains SAIGE p-value  
 #'
 #' @param phenoFile     Path to SAIGE phenotype file
