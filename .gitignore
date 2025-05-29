@@ -1,0 +1,20 @@
+# R package artifacts
+.Rhistory
+.Rproj.user/
+.RData
+.Ruserdata
+.Rbuildignore
+
+# OS / Editor
+.DS_Store
+thumbs.db
+
+# Logs
+*.log
+
+# Python / venv
+venv/
+__pycache__/
+
+# Installs
+library/
