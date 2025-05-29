@@ -58,7 +58,7 @@ To override this, supply your own gene-set file via the `geneSetFile` argument.
 2. **DESC**    — a short description (often the same as GeneSet)  
 3. **GeneSet,Genes** — a comma-separated list of **11** genes (the primary gene plus its top 10 neighbors)  
 
-Example first lines of `my_custom_geneset.txt`:
+Example first two lines of `my_custom_geneset.txt`:
 ```txt
 GeneSet DESC GeneSet,Genes
 A1BG	A1BG	A1BG,FAM3C,ORM2,OSCAR,LGALS3BP,LAIR2,VWF,FCAR,CRISP3,ITIH4,VSTM1
