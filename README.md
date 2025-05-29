@@ -48,7 +48,7 @@ closeAllConnections()
 # → writes results/rareNet/rareNet_results.txt with columns Gene and p.value
 ```
 
-### Custom Gene Set
+## Custom Gene Set
 
 By default, RareNet uses the shipped `geneset_string_v12.txt`.  
 To override this, supply your own gene-set file via the `geneSetFile` argument.  
@@ -69,6 +69,5 @@ A1CF A1CF
 - **Description:** Path to your custom TSV; if omitted, RareNet falls back to the built-in `geneset_string_v12.txt`.  
 
 ```r
-# Only the argument name—no need to retype the full function call:
 rareNet(..., geneSetFile = "data/my_custom_geneset.txt")
 ```
