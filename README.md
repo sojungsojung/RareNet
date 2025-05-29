@@ -35,26 +35,26 @@ devtools::install_github("sojungsojung/RareNet")
 ## Usage
 
 ```r
+## Usage
+
+```r
+# Load RareNet
 library(RareNet)
 
-# Run RareNet; this will produce "rareNet_results.txt" in your workDir
-res <- rareNet(
-  phenoFile     = "path/to/phenotypes.txt",    # must include IID & Phenotype
-  plinkPrefix   = "path/to/pruned_prefix",     # step1 (.bed/.bim/.fam)
-  bedFile       = "path/to/genotypes.bed",     # step2
+# Run RareNet without assignment; this will write
+# “rareNet_results.txt” under your workDir and close connections.
+rareNet(
+  phenoFile     = "path/to/phenotypes.txt",    # must include IID & Phenotype columns
+  plinkPrefix   = "path/to/pruned_prefix",     # for SAIGE step1 (.bed/.bim/.fam)
+  bedFile       = "path/to/genotypes.bed",     # for SAIGE step2
   bimFile       = "path/to/genotypes.bim",
   famFile       = "path/to/genotypes.fam",
   geneSetFile   = system.file("data","geneset_string_v12.txt",   package="RareNet"),
-  referenceFile = system.file("data","reference_panel.txt",     package="RareNet"),
-  workDir       = "results/rareNet/",
+  referenceFile = system.file("data","reference_panel.txt",      package="RareNet"),
+  workDir       = "results/rareNet/",          # where to save rareNet_results.txt
   threads       = 4
 )
-
-# Inspect the returned data.table
-head(res)
-
-# The two-column file "results/rareNet/rareNet_results.txt" contains:
-#   Gene    p.value
-# which you can read back into R or view in a text editor:
-results <- fread("results/rareNet/rareNet_results.txt", header=TRUE, sep="\t")
+closeAllConnections()
+# Output
+#   results/rareNet/rareNet_results.txt   (tab-delimited: Gene, p.value)
 ```
