@@ -1,10 +1,8 @@
-# RareNet
-**Rare** Variant **Net**work-based Association Analysis
+# RareNet: **Rare** Variant **Net**work-based Association Analysis
 
 RareNet is a network based rare variant gene based association analysis tool with improved power that leverages high-confidence protein–protein interaction networks from STRING-DB. It integrates [SAIGE-GENE+](https://github.com/weizhouUMICH/SAIGE) and [GAUSS](https://github.com/diptavo/GAUSS) to compute aggregate rare‐variant gene p-values.
 
-# RareNet  
-**Rare** Variant **Net**work-based **A**ssociation **A**nalysis  
+# RareNet: **Rare** Variant **Net**work-based **A**ssociation **A**nalysis  
 
 RareNet is an R package for powerful gene‐level rare‐variant testing that:  
 1. Leverages high‐confidence protein–protein interaction networks from STRING-DB to define biologically informed gene sets :contentReference[oaicite:0]{index=0}  
