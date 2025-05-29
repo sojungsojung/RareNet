@@ -61,8 +61,7 @@ To override this, supply your own gene-set file via the `geneSetFile` argument.
 Example first lines of `my_custom_geneset.txt`:
 ```txt
 GeneSet DESC GeneSet,Genes
-A1BG A1BG A1BG,GRB2,CRISP3,PTPN11,GAB2,AHSG,CRK,SERPINA1,AMBP,A2M,TF
-A1CF A1CF
+A1BG	A1BG	A1BG,FAM3C,ORM2,OSCAR,LGALS3BP,LAIR2,VWF,FCAR,CRISP3,ITIH4,VSTM1
 ```
 
 **How to use**  
