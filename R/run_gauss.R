@@ -1,30 +1,31 @@
 #' Run GAUSS on SAIGE summary statistics
 #'
-#' @param saigeRes   data.table or data.frame with columns Gene and p.value
-#' @param geneSetFile Path to GMT gene-set file (e.g., geneset_string_v12.txt)
-#' @param referenceFile Path to reference null weights file (reference.txt)
-#' @param outputDir   Directory to write GAUSS output files
-#' @return data.table with columns geneSet, p.value, coreSubset (list column)
+#' @param saigeRes      data.table with columns Gene and p.value
+#' @param geneSetFile   Path to gene-set file (default: shipped geneset_string_v12.txt)
+#' @param referenceFile Path to reference panel (default: shipped reference_panel.txt)
+#' @param outputDir     Directory to write GAUSS outputs
+#' @return data.table with columns geneSet, p.value, coreSubset
 #' @export
 run_gauss <- function(saigeRes,
-                      geneSetFile,
-                      referenceFile,
+                      geneSetFile   = system.file("data","geneset_string_v12.txt", package="RareNet"),
+                      referenceFile = system.file("data","reference_panel.txt",  package="RareNet"),
                       outputDir) {
+  library(GAUSS)       # summary-statistics gene-set testing :contentReference[oaicite:5]{index=5}
+  library(data.table)
+  library(dplyr)
+  library(foreach)
+  library(doParallel)
+
   dir.create(outputDir, recursive = TRUE, showWarnings = FALSE)
 
-  # write SAIGE summary to disk in the format GAUSS expects
+  # Write SAIGE summary for GAUSS
   summary_file <- file.path(outputDir, "saige_summary.txt")
-  data.table::fwrite(
-    saigeRes[, .(Gene, p.value)],
-    file = summary_file,
-    sep = "\t",
-    col.names = FALSE
-  )
+  fwrite(saigeRes[, .(Gene, p.value)], summary_file, sep="\t", col.names=FALSE)
 
-  # load reference null weights
-  ref_df <- data.table::fread(referenceFile, header = TRUE)
+  # Load precomputed reference panel
+  ref_df <- fread(referenceFile, header=TRUE)
 
-  # call GAUSS_All on all genes (start=1, stop=n)
+  # Run GAUSS_All over all genes
   gauss_out <- file.path(outputDir, "gauss_output.txt")
   GAUSS::GAUSS_All(
     summary_file = summary_file,
@@ -39,14 +40,10 @@ run_gauss <- function(saigeRes,
     stop         = nrow(saigeRes),
     is.appx      = TRUE,
     pv.null.wt1  = ref_df
-  )
+  )  # :contentReference[oaicite:6]{index=6}
 
-  if (!file.exists(gauss_out)) {
-    stop("GAUSS did not produce output at ", gauss_out)
-  }
-
-  # read and return
-  res <- data.table::fread(gauss_out)
-  data.table::setnames(res, c("geneSet", "p.value", "coreSubset"))
+  if (!file.exists(gauss_out)) stop("GAUSS output missing: ", gauss_out)
+  res <- fread(gauss_out)
+  setnames(res, c("geneSet","p.value","coreSubset"))
   return(res)
 }
