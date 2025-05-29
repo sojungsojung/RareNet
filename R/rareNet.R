@@ -7,73 +7,59 @@
 #' @param bedFile       Path to .bed file (SAIGE step2)
 #' @param bimFile       Path to .bim file (SAIGE step2)
 #' @param famFile       Path to .fam file (SAIGE step2)
-#' @param geneSetFile   Path to gene‐set GMT (default shipped geneset_string_v12.txt)
+#' @param geneSetFile   Path to gene‐set file (default shipped geneset_string_v12.txt)
 #' @param referenceFile Path to reference panel (default shipped reference_panel.txt)
 #' @param workDir       Directory for intermediate outputs & results (default: tempdir())
 #' @param threads       Number of threads for SAIGE (default: 4)
 #' @export
+# R/rareNet.R
 rareNet <- function(phenoFile,
                     plinkPrefix,
                     bedFile,
                     bimFile,
                     famFile,
-                    geneSetFile    = system.file("data","geneset_string_v12.txt",   package="RareNet"),
-                    referenceFile  = system.file("data","reference_panel.txt",     package="RareNet"),
+                    geneSetFile    = system.file("data", "geneset_string_v12.txt", package="RareNet"),
+                    referenceFile  = system.file("data", "reference_panel.txt",   package="RareNet"),
                     workDir        = tempdir(),
                     threads        = 4) {
-  # load required library
   library(data.table)
 
   # 1) SAIGE‐GENE+
-  saigeDir <- file.path(workDir, "saige")
   saigeRes <- run_saige_gene(
-    phenoFile     = phenoFile,
-    plinkPrefix   = plinkPrefix,
-    bedFile       = bedFile,
-    bimFile       = bimFile,
-    famFile       = famFile,
-    groupFile     = geneSetFile,
-    outputDir     = saigeDir,
-    threads       = threads
+    phenoFile   = phenoFile,
+    plinkPrefix = plinkPrefix,
+    bedFile     = bedFile,
+    bimFile     = bimFile,
+    famFile     = famFile,
+    groupFile   = geneSetFile,   # ← uses default or user‐supplied
+    outputDir   = file.path(workDir, "saige"),
+    threads     = threads
   )
   setnames(saigeRes, c("Gene","saige.p"))
 
   # 2) GAUSS
-  gaussDir <- file.path(workDir, "gauss")
   gaussRes <- run_gauss(
     saigeRes      = saigeRes[, .(Gene, p.value = saige.p)],
-    geneSetFile   = geneSetFile,
+    geneSetFile   = geneSetFile,   # ← same
     referenceFile = referenceFile,
-    outputDir     = gaussDir
+    outputDir     = file.path(workDir, "gauss")
   )
   setnames(gaussRes, c("geneSet","gauss.p","coreSubset"))
 
-  # 3) Merge and compute final p-values
+  # 3) Merge, combine, and write
   dt <- merge(
     saigeRes,
     gaussRes[, .(Gene = geneSet, gauss.p, coreSubset)],
     by = "Gene", all.x = TRUE
   )
-  dt[, combined := ifelse(
-    Gene %in% unlist(coreSubset),
-    cauchy_combine(saige.p, gauss.p),
-    saige.p
-  )]
+  dt[, combined := ifelse(Gene %in% unlist(coreSubset), cauchy_combine(saige.p, gauss.p), saige.p)]
   dt[, p.value := combined][, combined := NULL]
-  dt[, source := ifelse(
-    Gene %in% unlist(coreSubset),
-    "combined", "saige_only"
-  )]
+  dt[, source := fifelse(Gene %in% unlist(coreSubset), "combined","saige_only")]
 
-  # 4) Write results to file
+  # Write the final two-column result
   out_file <- file.path(workDir, "rareNet_results.txt")
-  fwrite(
-    dt[, .(Gene, p.value)],
-    file      = out_file,
-    sep       = "\t",
-    col.names = TRUE
-  )
+  fwrite(dt[, .(Gene, p.value)], out_file, sep = "\t", col.names = TRUE)
 
-  # 5) Optionally, close any open connections
+  # Clean up
   closeAllConnections()
 }
