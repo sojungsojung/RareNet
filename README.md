@@ -14,6 +14,7 @@ if (!requireNamespace("devtools", quietly = TRUE))
 
 # Install from GitHub
 devtools::install_github("sojungsojung/RareNet")
+```
 
 ## Usage
 
