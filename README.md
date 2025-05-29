@@ -6,4 +6,4 @@
 
 ```r
 # From GitHub (requires devtools)
-devtools::install_github("yourusername/RareNet")
+devtools::install_github("sojungsojung/RareNet")
